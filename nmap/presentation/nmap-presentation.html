@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nmap - Network Security Presentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Slide 1: Title -->
+    <div class="slide slide-title" id="slide1">
+        <div class="bg-pattern"></div>
+        <div class="content">
+            <div class="logo-container">
+                <div class="nmap-logo">
+                    <span class="logo-icon">🔍</span>
+                </div>
+            </div>
+            <h1 class="main-title">Nmap</h1>
+            <p class="subtitle">Network Mapper</p>
+            <div class="title-divider"></div>
+            <p class="tagline">The Art of Network Reconnaissance</p>
+            <div class="presenter-info">
+                <p>Cybersecurity Seminar | 1st Year</p>
+                <p class="date">2026</p>
+            </div>
+        </div>
+        <div class="slide-number">01</div>
+    </div>
+
+    <!-- Slide 2: Agenda -->
+    <div class="slide slide-agenda" id="slide2">
+        <div class="slide-header">
+            <h2>Agenda</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="agenda-grid">
+                <div class="agenda-item" data-num="01">
+                    <div class="agenda-icon">🌐</div>
+                    <h3>Networking Basics</h3>
+                    <p>IP, Ports, Protocols</p>
+                </div>
+                <div class="agenda-item" data-num="02">
+                    <div class="agenda-icon">🔄</div>
+                    <h3>TCP vs UDP</h3>
+                    <p>Transport Protocols</p>
+                </div>
+                <div class="agenda-item" data-num="03">
+                    <div class="agenda-icon">🧭</div>
+                    <h3>Introduction to Nmap</h3>
+                    <p>What & Why</p>
+                </div>
+                <div class="agenda-item" data-num="04">
+                    <div class="agenda-icon">🔍</div>
+                    <h3>Scanning Techniques</h3>
+                    <p>Types & Methods</p>
+                </div>
+                <div class="agenda-item" data-num="05">
+                    <div class="agenda-icon">⚡</div>
+                    <h3>Advanced Features</h3>
+                    <p>Scripts & Evasion</p>
+                </div>
+                <div class="agenda-item" data-num="06">
+                    <div class="agenda-icon">🎯</div>
+                    <h3>Live Demo</h3>
+                    <p>Practical Examples</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">02</div>
+    </div>
+
+    <!-- Slide 3: What is a Network -->
+    <div class="slide slide-network" id="slide3">
+        <div class="slide-header">
+            <h2>What is a Network?</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="definition-box">
+                <p>A <strong>network</strong> is a collection of computers and devices connected together to share resources and communicate.</p>
+            </div>
+            <div class="network-types">
+                <div class="network-card lan hover-explainer">
+                    <div class="card-icon">🏠</div>
+                    <h3>LAN</h3>
+                    <p class="full-form">Local Area Network</p>
+                    <p class="description">Small area like home or office</p>
+                    <div class="card-accent"></div>
+                    <div class="hover-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="lan-animation">
+                                <span class="device">💻</span>
+                                <span class="connection">━━━</span>
+                                <span class="router">📶</span>
+                                <span class="connection">━━━</span>
+                                <span class="device">🖥️</span>
+                            </div>
+                        </div>
+                        <h4>How LAN Works</h4>
+                        <p>Devices connect to a central router/switch within a small area (home/office). Data travels at high speed (100Mbps - 10Gbps) through Ethernet cables or WiFi.</p>
+                        <div class="tooltip-example">Example: Your home WiFi network</div>
+                    </div>
+                </div>
+                <div class="network-card wan hover-explainer">
+                    <div class="card-icon">🌍</div>
+                    <h3>WAN</h3>
+                    <p class="full-form">Wide Area Network</p>
+                    <p class="description">Large area - cities, countries</p>
+                    <div class="card-accent"></div>
+                    <div class="hover-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="wan-animation">
+                                <span class="city">🏢</span>
+                                <span class="globe-connect">🌐</span>
+                                <span class="city">🏢</span>
+                            </div>
+                        </div>
+                        <h4>How WAN Works</h4>
+                        <p>Connects multiple LANs across cities/countries using ISP infrastructure, fiber optics, and satellites. The Internet is the largest WAN!</p>
+                        <div class="tooltip-example">Example: Internet, Corporate networks</div>
+                    </div>
+                </div>
+                <div class="network-card man hover-explainer">
+                    <div class="card-icon">🏙️</div>
+                    <h3>MAN</h3>
+                    <p class="full-form">Metropolitan Area Network</p>
+                    <p class="description">City-wide coverage</p>
+                    <div class="card-accent"></div>
+                    <div class="hover-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="man-animation">
+                                <span class="building">🏛️</span>
+                                <span class="fiber">〰️〰️〰️</span>
+                                <span class="building">🏥</span>
+                            </div>
+                        </div>
+                        <h4>How MAN Works</h4>
+                        <p>Spans a city using high-speed fiber optic connections. Used by universities, hospitals, and government buildings in a metropolitan area.</p>
+                        <div class="tooltip-example">Example: City cable TV network</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">03</div>
+    </div>
+
+    <!-- Slide 4: IP Address -->
+    <div class="slide slide-ip" id="slide4">
+        <div class="slide-header">
+            <h2>IP Address</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="ip-intro">
+                <p>An <strong>IP Address</strong> is a unique numerical label assigned to every device on a network.</p>
+            </div>
+            <div class="ip-comparison">
+                <div class="ip-box ipv4">
+                    <div class="ip-header">
+                        <h3>IPv4</h3>
+                        <span class="badge">Most Common</span>
+                    </div>
+                    <div class="ip-example">
+                        <code>192.168.1.1</code>
+                    </div>
+                    <ul class="ip-details">
+                        <li>4 octets (0-255 each)</li>
+                        <li>~4.3 billion addresses</li>
+                        <li>32-bit address</li>
+                    </ul>
+                </div>
+                <div class="vs-circle">VS</div>
+                <div class="ip-box ipv6">
+                    <div class="ip-header">
+                        <h3>IPv6</h3>
+                        <span class="badge new">Future</span>
+                    </div>
+                    <div class="ip-example">
+                        <code>2001:0db8:85a3::7334</code>
+                    </div>
+                    <ul class="ip-details">
+                        <li>8 groups of hexadecimal</li>
+                        <li>340 undecillion addresses</li>
+                        <li>128-bit address</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="analogy-box">
+                <span class="analogy-icon">💡</span>
+                <p><strong>Analogy:</strong> IP address is like your home address - it tells where you live on the internet.</p>
+            </div>
+        </div>
+        <div class="slide-number">04</div>
+    </div>
+
+    <!-- Slide 5: What is a Port -->
+    <div class="slide slide-port" id="slide5">
+        <div class="slide-header">
+            <h2>What is a Port?</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="port-visual">
+                <div class="building">
+                    <div class="building-label">Server (IP: 192.168.1.1)</div>
+                    <div class="floors">
+                        <div class="floor">
+                            <span class="door open">🚪</span>
+                            <span class="port-num">Port 80</span>
+                            <span class="service">HTTP</span>
+                        </div>
+                        <div class="floor">
+                            <span class="door open">🚪</span>
+                            <span class="port-num">Port 443</span>
+                            <span class="service">HTTPS</span>
+                        </div>
+                        <div class="floor">
+                            <span class="door closed">🚪</span>
+                            <span class="port-num">Port 22</span>
+                            <span class="service">SSH</span>
+                        </div>
+                        <div class="floor">
+                            <span class="door closed">🚪</span>
+                            <span class="port-num">Port 21</span>
+                            <span class="service">FTP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="port-explanation">
+                    <h3>Port = Virtual Door</h3>
+                    <p>Ports identify which application should receive the incoming data.</p>
+                    <div class="port-ranges">
+                        <div class="range">
+                            <span class="range-num">0-1023</span>
+                            <span class="range-name">Well-Known</span>
+                        </div>
+                        <div class="range">
+                            <span class="range-num">1024-49151</span>
+                            <span class="range-name">Registered</span>
+                        </div>
+                        <div class="range">
+                            <span class="range-num">49152-65535</span>
+                            <span class="range-name">Dynamic</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">05</div>
+    </div>
+
+    <!-- Slide 6: Important Ports -->
+    <div class="slide slide-ports-table" id="slide6">
+        <div class="slide-header">
+            <h2>Important Ports to Know</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="ports-grid">
+                <div class="port-card hover-explainer">
+                    <div class="port-number">20/21</div>
+                    <div class="port-name">FTP</div>
+                    <div class="port-desc">File Transfer</div>
+                    <div class="hover-tooltip port-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="ftp-animation">
+                                <span>💻</span><span class="arrow-animate">📄➡️</span><span>🖥️</span>
+                            </div>
+                        </div>
+                        <h4>File Transfer Protocol</h4>
+                        <p>Port 20: Data transfer<br>Port 21: Control commands</p>
+                        <p class="how-works">Client connects → Authenticates → Uploads/Downloads files</p>
+                        <div class="tooltip-warning">⚠️ Not encrypted! Use SFTP instead</div>
+                    </div>
+                </div>
+                <div class="port-card hover-explainer">
+                    <div class="port-number">22</div>
+                    <div class="port-name">SSH</div>
+                    <div class="port-desc">Secure Shell</div>
+                    <div class="hover-tooltip port-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="ssh-animation">
+                                <span>👤</span><span class="encrypted">🔐━━━</span><span>🖥️</span>
+                            </div>
+                        </div>
+                        <h4>Secure Shell</h4>
+                        <p>Encrypted remote terminal access</p>
+                        <p class="how-works">All data is encrypted using public-key cryptography</p>
+                        <div class="tooltip-safe">✅ Secure - Replaced Telnet</div>
+                    </div>
+                </div>
+                <div class="port-card hover-explainer">
+                    <div class="port-number">23</div>
+                    <div class="port-name">Telnet</div>
+                    <div class="port-desc">Remote Login</div>
+                    <div class="hover-tooltip port-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="telnet-animation">
+                                <span>👤</span><span class="plain-text">━━━</span><span>🖥️</span>
+                            </div>
+                        </div>
+                        <h4>Teletype Network</h4>
+                        <p>Old protocol for remote login</p>
+                        <p class="how-works">Sends data in PLAIN TEXT - anyone can read!</p>
+                        <div class="tooltip-warning">⚠️ INSECURE! Never use on internet</div>
+                    </div>
+                </div>
+                <div class="port-card hover-explainer">
+                    <div class="port-number">25</div>
+                    <div class="port-name">SMTP</div>
+                    <div class="port-desc">Send Email</div>
+                    <div class="hover-tooltip port-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="smtp-animation">
+                                <span>📧</span><span class="arrow-animate">➡️➡️➡️</span><span>📬</span>
+                            </div>
+                        </div>
+                        <h4>Simple Mail Transfer Protocol</h4>
+                        <p>Used to SEND emails between servers</p>
+                        <p class="how-works">Your email client → SMTP server → Recipient's server</p>
+                        <div class="tooltip-example">Like postal service for email!</div>
+                    </div>
+                </div>
+                <div class="port-card highlight hover-explainer">
+                    <div class="port-number">53</div>
+                    <div class="port-name">DNS</div>
+                    <div class="port-desc">Domain Names</div>
+                    <div class="hover-tooltip port-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="dns-animation">
+                                <span>google.com</span><span>➡️</span><span>142.250.x.x</span>
+                            </div>
+                        </div>
+                        <h4>Domain Name System</h4>
+                        <p>Translates domain names to IP addresses</p>
+                        <p class="how-works">Browser asks: "What's google.com's IP?" → DNS replies with IP</p>
+                        <div class="tooltip-example">📞 Phone book of the internet!</div>
+                    </div>
+                </div>
+                <div class="port-card highlight hover-explainer">
+                    <div class="port-number">80</div>
+                    <div class="port-name">HTTP</div>
+                    <div class="port-desc">Web Traffic</div>
+                    <div class="hover-tooltip port-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="http-animation">
+                                <span>🌐</span><span class="arrow-animate">GET /page</span><span>📄</span>
+                            </div>
+                        </div>
+                        <h4>HyperText Transfer Protocol</h4>
+                        <p>Standard web browsing protocol</p>
+                        <p class="how-works">Browser sends request → Server sends webpage</p>
+                        <div class="tooltip-warning">⚠️ Not encrypted - use HTTPS</div>
+                    </div>
+                </div>
+                <div class="port-card hover-explainer">
+                    <div class="port-number">110</div>
+                    <div class="port-name">POP3</div>
+                    <div class="port-desc">Receive Email</div>
+                    <div class="hover-tooltip port-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="pop-animation">
+                                <span>📬</span><span class="arrow-animate">⬇️</span><span>💻</span>
+                            </div>
+                        </div>
+                        <h4>Post Office Protocol v3</h4>
+                        <p>Downloads emails to your device</p>
+                        <p class="how-works">Connects → Downloads all emails → Deletes from server</p>
+                        <div class="tooltip-example">Emails stored locally on device</div>
+                    </div>
+                </div>
+                <div class="port-card highlight hover-explainer">
+                    <div class="port-number">443</div>
+                    <div class="port-name">HTTPS</div>
+                    <div class="port-desc">Secure Web</div>
+                    <div class="hover-tooltip port-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="https-animation">
+                                <span>🌐</span><span class="encrypted">🔒━━━</span><span>📄</span>
+                            </div>
+                        </div>
+                        <h4>HTTP + SSL/TLS Encryption</h4>
+                        <p>Encrypted web browsing</p>
+                        <p class="how-works">All data encrypted with TLS certificate</p>
+                        <div class="tooltip-safe">✅ Look for 🔒 in browser URL!</div>
+                    </div>
+                </div>
+                <div class="port-card hover-explainer">
+                    <div class="port-number">3306</div>
+                    <div class="port-name">MySQL</div>
+                    <div class="port-desc">Database</div>
+                    <div class="hover-tooltip port-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="mysql-animation">
+                                <span>🖥️</span><span>SQL→</span><span>🗄️</span>
+                            </div>
+                        </div>
+                        <h4>MySQL Database Server</h4>
+                        <p>Relational database management</p>
+                        <p class="how-works">App sends SQL query → MySQL returns data</p>
+                        <div class="tooltip-warning">⚠️ Should NOT be exposed to internet!</div>
+                    </div>
+                </div>
+                <div class="port-card hover-explainer">
+                    <div class="port-number">3389</div>
+                    <div class="port-name">RDP</div>
+                    <div class="port-desc">Remote Desktop</div>
+                    <div class="hover-tooltip port-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="rdp-animation">
+                                <span>💻</span><span class="arrow-animate">🖼️➡️</span><span>🖥️</span>
+                            </div>
+                        </div>
+                        <h4>Remote Desktop Protocol</h4>
+                        <p>Windows remote GUI access</p>
+                        <p class="how-works">See & control another computer's desktop remotely</p>
+                        <div class="tooltip-warning">⚠️ Common attack target - use VPN!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">06</div>
+    </div>
+
+    <!-- Slide 7: What is a Protocol -->
+    <div class="slide slide-protocol" id="slide7">
+        <div class="slide-header">
+            <h2>What is a Protocol?</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="protocol-definition">
+                <p>A <strong>protocol</strong> is a set of rules that define how data is transmitted and received over a network.</p>
+            </div>
+            <div class="protocol-analogy">
+                <div class="phone-call">
+                    <h3>📞 Like a Phone Call</h3>
+                    <div class="call-steps">
+                        <div class="step">Dial Number</div>
+                        <div class="arrow">→</div>
+                        <div class="step">Ring</div>
+                        <div class="arrow">→</div>
+                        <div class="step">Hello!</div>
+                        <div class="arrow">→</div>
+                        <div class="step">Talk</div>
+                        <div class="arrow">→</div>
+                        <div class="step">Bye</div>
+                        <div class="arrow">→</div>
+                        <div class="step">Hang Up</div>
+                    </div>
+                </div>
+            </div>
+            <div class="common-protocols">
+                <div class="protocol-item">
+                    <span class="proto-name">HTTP/HTTPS</span>
+                    <span class="proto-use">Web Browsing</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="proto-name">FTP/SFTP</span>
+                    <span class="proto-use">File Transfer</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="proto-name">SMTP/POP3</span>
+                    <span class="proto-use">Email</span>
+                </div>
+                <div class="protocol-item">
+                    <span class="proto-name">DNS</span>
+                    <span class="proto-use">Name Resolution</span>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">07</div>
+    </div>
+
+    <!-- Slide 8: OSI Model -->
+    <div class="slide slide-osi" id="slide8">
+        <div class="slide-header">
+            <h2>OSI Model - 7 Layers</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="osi-tower">
+                <div class="osi-layer layer7 hover-explainer">
+                    <span class="layer-num">7</span>
+                    <span class="layer-name">Application</span>
+                    <span class="layer-proto">HTTP, FTP, DNS</span>
+                    <div class="hover-tooltip osi-tooltip">
+                        <div class="osi-icon-large">🌐</div>
+                        <h4>Application Layer</h4>
+                        <p>What users interact with directly - web browsers, email clients, etc.</p>
+                        <div class="osi-example">📧 Email app, 🌐 Chrome browser, 📁 FTP client</div>
+                    </div>
+                </div>
+                <div class="osi-layer layer6 hover-explainer">
+                    <span class="layer-num">6</span>
+                    <span class="layer-name">Presentation</span>
+                    <span class="layer-proto">SSL, Encryption</span>
+                    <div class="hover-tooltip osi-tooltip">
+                        <div class="osi-icon-large">🔐</div>
+                        <h4>Presentation Layer</h4>
+                        <p>Translates data format, encryption, compression. Makes data readable.</p>
+                        <div class="osi-example">JPEG→Image, MP3→Audio, SSL→Encryption</div>
+                    </div>
+                </div>
+                <div class="osi-layer layer5 hover-explainer">
+                    <span class="layer-num">5</span>
+                    <span class="layer-name">Session</span>
+                    <span class="layer-proto">Authentication</span>
+                    <div class="hover-tooltip osi-tooltip">
+                        <div class="osi-icon-large">🤝</div>
+                        <h4>Session Layer</h4>
+                        <p>Manages connections - opens, maintains, closes sessions between apps.</p>
+                        <div class="osi-example">Login sessions, Video call connections</div>
+                    </div>
+                </div>
+                <div class="osi-layer layer4 hover-explainer">
+                    <span class="layer-num">4</span>
+                    <span class="layer-name">Transport</span>
+                    <span class="layer-proto">TCP, UDP</span>
+                    <div class="hover-tooltip osi-tooltip">
+                        <div class="osi-icon-large">🚚</div>
+                        <h4>Transport Layer</h4>
+                        <p>Ensures reliable data delivery. TCP = reliable, UDP = fast.</p>
+                        <div class="osi-example">TCP: Web, Email | UDP: Gaming, Streaming</div>
+                    </div>
+                </div>
+                <div class="osi-layer layer3 hover-explainer">
+                    <span class="layer-num">3</span>
+                    <span class="layer-name">Network</span>
+                    <span class="layer-proto">IP, ICMP</span>
+                    <div class="hover-tooltip osi-tooltip">
+                        <div class="osi-icon-large">🗺️</div>
+                        <h4>Network Layer</h4>
+                        <p>Routes packets between networks using IP addresses. Finds best path.</p>
+                        <div class="osi-example">Routers work here! IP addressing & routing</div>
+                    </div>
+                </div>
+                <div class="osi-layer layer2 hover-explainer">
+                    <span class="layer-num">2</span>
+                    <span class="layer-name">Data Link</span>
+                    <span class="layer-proto">MAC, Ethernet</span>
+                    <div class="hover-tooltip osi-tooltip">
+                        <div class="osi-icon-large">🔗</div>
+                        <h4>Data Link Layer</h4>
+                        <p>Transfers data between adjacent nodes using MAC addresses.</p>
+                        <div class="osi-example">Switches, MAC addresses, Ethernet frames</div>
+                    </div>
+                </div>
+                <div class="osi-layer layer1 hover-explainer">
+                    <span class="layer-num">1</span>
+                    <span class="layer-name">Physical</span>
+                    <span class="layer-proto">Cables, WiFi</span>
+                    <div class="hover-tooltip osi-tooltip">
+                        <div class="osi-icon-large">🔌</div>
+                        <h4>Physical Layer</h4>
+                        <p>Actual hardware - cables, signals, bits (0s and 1s).</p>
+                        <div class="osi-example">Ethernet cables, WiFi radio waves, Fiber optics</div>
+                    </div>
+                </div>
+            </div>
+            <div class="osi-mnemonic">
+                <p><strong>Remember:</strong> "<span class="highlight-text">A</span>ll <span class="highlight-text">P</span>eople <span class="highlight-text">S</span>eem <span class="highlight-text">T</span>o <span class="highlight-text">N</span>eed <span class="highlight-text">D</span>ata <span class="highlight-text">P</span>rocessing"</p>
+            </div>
+        </div>
+        <div class="slide-number">08</div>
+    </div>
+
+    <!-- Slide 9: TCP Explained -->
+    <div class="slide slide-tcp" id="slide9">
+        <div class="slide-header">
+            <h2>TCP - Transmission Control Protocol</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="tcp-badge">Connection-Oriented | Reliable</div>
+            <div class="handshake-visual">
+                <h3>🤝 3-Way Handshake</h3>
+                <div class="handshake-diagram">
+                    <div class="entity client">
+                        <div class="entity-icon">💻</div>
+                        <span>Client</span>
+                    </div>
+                    <div class="handshake-lines">
+                        <div class="line syn">
+                            <span class="packet">SYN</span>
+                            <span class="desc">"Can we connect?"</span>
+                        </div>
+                        <div class="line syn-ack">
+                            <span class="packet">SYN-ACK</span>
+                            <span class="desc">"Yes, ready!"</span>
+                        </div>
+                        <div class="line ack">
+                            <span class="packet">ACK</span>
+                            <span class="desc">"Let's start!"</span>
+                        </div>
+                    </div>
+                    <div class="entity server">
+                        <div class="entity-icon">🖥️</div>
+                        <span>Server</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tcp-features">
+                <div class="feature good">✅ Reliable - Guarantees delivery</div>
+                <div class="feature good">✅ Ordered - Data arrives in sequence</div>
+                <div class="feature good">✅ Error checking - Detects corruption</div>
+                <div class="feature bad">❌ Slower - Due to overhead</div>
+            </div>
+        </div>
+        <div class="slide-number">09</div>
+    </div>
+
+    <!-- Slide 10: UDP Explained -->
+    <div class="slide slide-udp" id="slide10">
+        <div class="slide-header">
+            <h2>UDP - User Datagram Protocol</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="udp-badge">Connectionless | Fast</div>
+            <div class="udp-visual">
+                <h3>⚡ Fire and Forget</h3>
+                <div class="udp-diagram">
+                    <div class="entity client">
+                        <div class="entity-icon">💻</div>
+                        <span>Client</span>
+                    </div>
+                    <div class="udp-lines">
+                        <div class="data-line">📦 Data →</div>
+                        <div class="data-line">📦 Data →</div>
+                        <div class="data-line">📦 Data →</div>
+                        <div class="no-response">No confirmation needed!</div>
+                    </div>
+                    <div class="entity server">
+                        <div class="entity-icon">🖥️</div>
+                        <span>Server</span>
+                    </div>
+                </div>
+            </div>
+            <div class="udp-features">
+                <div class="feature good">✅ Fast - No handshake</div>
+                <div class="feature good">✅ Low latency - Real-time</div>
+                <div class="feature bad">❌ Unreliable - No guarantee</div>
+                <div class="feature bad">❌ Unordered - May arrive shuffled</div>
+            </div>
+            <div class="udp-uses">
+                <span>🎮 Gaming</span>
+                <span>📹 Video Streaming</span>
+                <span>📞 VoIP Calls</span>
+                <span>🔍 DNS</span>
+            </div>
+        </div>
+        <div class="slide-number">10</div>
+    </div>
+
+    <!-- Slide 11: TCP vs UDP -->
+    <div class="slide slide-comparison" id="slide11">
+        <div class="slide-header">
+            <h2>TCP vs UDP</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="comparison-table">
+                <div class="comp-header">
+                    <div class="comp-cell feature-name">Feature</div>
+                    <div class="comp-cell tcp-col">TCP</div>
+                    <div class="comp-cell udp-col">UDP</div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell feature-name">Connection</div>
+                    <div class="comp-cell">Connection-oriented</div>
+                    <div class="comp-cell">Connectionless</div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell feature-name">Reliability</div>
+                    <div class="comp-cell">Guaranteed ✅</div>
+                    <div class="comp-cell">Best effort ⚠️</div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell feature-name">Speed</div>
+                    <div class="comp-cell">Slower 🐢</div>
+                    <div class="comp-cell">Faster 🚀</div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell feature-name">Order</div>
+                    <div class="comp-cell">Maintained</div>
+                    <div class="comp-cell">Not guaranteed</div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell feature-name">Header Size</div>
+                    <div class="comp-cell">20-60 bytes</div>
+                    <div class="comp-cell">8 bytes</div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell feature-name">Use Case</div>
+                    <div class="comp-cell">Web, Email, Files</div>
+                    <div class="comp-cell">Streaming, Gaming</div>
+                </div>
+            </div>
+            <div class="comparison-analogy">
+                <div class="analogy-card tcp-analogy">
+                    <span class="analogy-emoji">📬</span>
+                    <p><strong>TCP</strong> = Registered Post</p>
+                    <span class="analogy-detail">Confirmation required</span>
+                </div>
+                <div class="analogy-card udp-analogy">
+                    <span class="analogy-emoji">📨</span>
+                    <p><strong>UDP</strong> = Regular Post</p>
+                    <span class="analogy-detail">Just send and hope</span>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">11</div>
+    </div>
+
+    <!-- Slide 12: Introduction to Nmap -->
+    <div class="slide slide-nmap-intro" id="slide12">
+        <div class="slide-header">
+            <h2>What is Nmap?</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="nmap-hero">
+                <div class="nmap-icon-large">🧭</div>
+                <h3>Network Mapper</h3>
+                <p class="nmap-desc">Free, open-source tool for network exploration and security auditing</p>
+            </div>
+            <div class="nmap-capabilities">
+                <div class="capability">
+                    <span class="cap-icon">🔍</span>
+                    <span class="cap-text">Discover Live Hosts</span>
+                </div>
+                <div class="capability">
+                    <span class="cap-icon">🚪</span>
+                    <span class="cap-text">Find Open Ports</span>
+                </div>
+                <div class="capability">
+                    <span class="cap-icon">🔧</span>
+                    <span class="cap-text">Detect Services</span>
+                </div>
+                <div class="capability">
+                    <span class="cap-icon">💻</span>
+                    <span class="cap-text">Identify OS</span>
+                </div>
+                <div class="capability">
+                    <span class="cap-icon">🛡️</span>
+                    <span class="cap-text">Find Vulnerabilities</span>
+                </div>
+                <div class="capability">
+                    <span class="cap-icon">📜</span>
+                    <span class="cap-text">Run Scripts</span>
+                </div>
+            </div>
+            <div class="nmap-quote">
+                <p>"The #1 tool used in the reconnaissance phase of penetration testing"</p>
+            </div>
+        </div>
+        <div class="slide-number">12</div>
+    </div>
+
+    <!-- Slide 13: Nmap Analogy -->
+    <div class="slide slide-analogy" id="slide13">
+        <div class="slide-header">
+            <h2>Understanding Nmap</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="analogy-visual">
+                <div class="building-diagram">
+                    <div class="building-title">🏢 Think of a Server as a Building</div>
+                    <div class="building-structure">
+                        <div class="building-body">
+                            <div class="door-row">
+                                <div class="door open-door">
+                                    <span class="door-icon">🚪</span>
+                                    <span class="door-label">Port 80</span>
+                                    <span class="door-status open">OPEN</span>
+                                </div>
+                                <div class="door closed-door">
+                                    <span class="door-icon">🚪</span>
+                                    <span class="door-label">Port 22</span>
+                                    <span class="door-status closed">CLOSED</span>
+                                </div>
+                                <div class="door filtered-door">
+                                    <span class="door-icon">🚪</span>
+                                    <span class="door-label">Port 443</span>
+                                    <span class="door-status filtered">FILTERED</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nmap-guard">
+                    <div class="guard-icon">🔍</div>
+                    <h3>Nmap = Security Guard</h3>
+                    <p>Knocks on every door to check:</p>
+                    <ul>
+                        <li>Is the door open? 🚪</li>
+                        <li>Who's inside? (Service) 👤</li>
+                        <li>What version? 📋</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="scan-types-preview">
+                <div class="scan-type quiet">
+                    <span>🤫 SYN Scan</span>
+                    <span>Quiet Knock</span>
+                </div>
+                <div class="scan-type loud">
+                    <span>📢 Aggressive Scan</span>
+                    <span>Loud + Thorough</span>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">13</div>
+    </div>
+
+    <!-- Slide 14: Installation -->
+    <div class="slide slide-install" id="slide14">
+        <div class="slide-header">
+            <h2>Installation</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="install-cards">
+                <div class="install-card linux">
+                    <div class="os-icon">🐧</div>
+                    <h3>Linux</h3>
+                    <div class="code-block copy-block" onclick="copyToClipboard(this, 'sudo apt install nmap -y')" title="Click to copy command">
+                        <code>sudo apt install nmap -y</code>
+                        <span class="distro">Ubuntu/Debian</span>
+                        <span class="copy-icon">📋</span>
+                    </div>
+                    <div class="code-block copy-block" onclick="copyToClipboard(this, 'sudo yum install nmap -y')" title="Click to copy command">
+                        <code>sudo yum install nmap -y</code>
+                        <span class="distro">CentOS/RHEL</span>
+                        <span class="copy-icon">📋</span>
+                    </div>
+                </div>
+                <div class="install-card windows">
+                    <div class="os-icon">🪟</div>
+                    <h3>Windows</h3>
+                    <div class="code-block link-block">
+                        <a href="https://nmap.org/download" target="_blank" class="install-link">nmap.org/download</a>
+                        <span class="distro">Download Installer</span>
+                        <span class="link-icon">🔗</span>
+                    </div>
+                </div>
+                <div class="install-card mac">
+                    <div class="os-icon">🍎</div>
+                    <h3>macOS</h3>
+                    <div class="code-block copy-block" onclick="copyToClipboard(this, 'brew install nmap')" title="Click to copy command">
+                        <code>brew install nmap</code>
+                        <span class="distro">Homebrew</span>
+                        <span class="copy-icon">📋</span>
+                    </div>
+                </div>
+            </div>
+            <div class="verify-install">
+                <h4>Verify Installation:</h4>
+                <div class="verify-code copy-block" onclick="copyToClipboard(this, 'nmap --version')" title="Click to copy command">
+                    <code>nmap --version</code>
+                    <span class="copy-icon">📋</span>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">14</div>
+    </div>
+
+    <!-- Slide 15: Basic Scans -->
+    <div class="slide slide-basic" id="slide15">
+        <div class="slide-header">
+            <h2>Basic Scanning</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="command-cards">
+                <div class="command-card">
+                    <div class="command-header">Scan a Domain</div>
+                    <div class="command-code">
+                        <code>nmap example.com</code>
+                    </div>
+                    <div class="command-desc">Scans top 1000 common ports</div>
+                </div>
+                <div class="command-card">
+                    <div class="command-header">Scan an IP</div>
+                    <div class="command-code">
+                        <code>nmap 192.168.1.1</code>
+                    </div>
+                    <div class="command-desc">Direct IP scanning</div>
+                </div>
+                <div class="command-card">
+                    <div class="command-header">Verbose Mode</div>
+                    <div class="command-code">
+                        <code>nmap -v target</code>
+                    </div>
+                    <div class="command-desc">Show detailed progress</div>
+                </div>
+                <div class="command-card">
+                    <div class="command-header">Multiple Targets</div>
+                    <div class="command-code">
+                        <code>nmap 192.168.1.1-50</code>
+                    </div>
+                    <div class="command-desc">Scan IP range</div>
+                </div>
+                <div class="command-card">
+                    <div class="command-header">Subnet Scan</div>
+                    <div class="command-code">
+                        <code>nmap 192.168.1.0/24</code>
+                    </div>
+                    <div class="command-desc">Scan entire network</div>
+                </div>
+                <div class="command-card">
+                    <div class="command-header">From File</div>
+                    <div class="command-code">
+                        <code>nmap -iL targets.txt</code>
+                    </div>
+                    <div class="command-desc">Read targets from file</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">15</div>
+    </div>
+
+    <!-- Slide 16: Scan Types -->
+    <div class="slide slide-scan-types" id="slide16">
+        <div class="slide-header">
+            <h2>Scan Types</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="scan-type-grid">
+                <div class="scan-card syn hover-explainer">
+                    <div class="scan-icon">🥷</div>
+                    <h3>SYN Scan</h3>
+                    <code>nmap -sS target</code>
+                    <p>Stealth scan - doesn't complete handshake</p>
+                    <span class="scan-badge">Default • Fast • Stealthy</span>
+                    <div class="hover-tooltip scan-tooltip">
+                        <h4>🥷 How SYN Scan Works</h4>
+                        <div class="scan-animation">
+                            <div class="scan-step"><span class="step-num">1</span> Send SYN packet</div>
+                            <div class="scan-arrow">↓</div>
+                            <div class="scan-step"><span class="step-num">2</span> Receive SYN-ACK (port open)</div>
+                            <div class="scan-arrow">↓</div>
+                            <div class="scan-step"><span class="step-num">3</span> Send RST (reset) - DON'T complete!</div>
+                        </div>
+                        <p class="scan-why">✨ <strong>Why Stealth?</strong> Connection never fully established, so it's often not logged by target system!</p>
+                        <div class="scan-visual">
+                            <span>💻</span>
+                            <span class="packet-flow">SYN→ ←SYN-ACK RST→</span>
+                            <span>🖥️</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="scan-card tcp hover-explainer">
+                    <div class="scan-icon">🤝</div>
+                    <h3>TCP Connect</h3>
+                    <code>nmap -sT target</code>
+                    <p>Full TCP handshake - no root needed</p>
+                    <span class="scan-badge">Reliable • Detectable</span>
+                    <div class="hover-tooltip scan-tooltip">
+                        <h4>🤝 How TCP Connect Works</h4>
+                        <div class="scan-animation">
+                            <div class="scan-step"><span class="step-num">1</span> Send SYN packet</div>
+                            <div class="scan-arrow">↓</div>
+                            <div class="scan-step"><span class="step-num">2</span> Receive SYN-ACK</div>
+                            <div class="scan-arrow">↓</div>
+                            <div class="scan-step"><span class="step-num">3</span> Send ACK - Connection COMPLETE!</div>
+                        </div>
+                        <p class="scan-why">⚠️ <strong>Downside:</strong> Full connection = gets logged! But works without root/admin privileges.</p>
+                        <div class="scan-visual">
+                            <span>💻</span>
+                            <span class="packet-flow">SYN→ ←SYN-ACK ACK→ ✅</span>
+                            <span>🖥️</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="scan-card udp hover-explainer">
+                    <div class="scan-icon">📡</div>
+                    <h3>UDP Scan</h3>
+                    <code>nmap -sU target</code>
+                    <p>Scan UDP ports - slower process</p>
+                    <span class="scan-badge">DNS • DHCP • SNMP</span>
+                    <div class="hover-tooltip scan-tooltip">
+                        <h4>📡 How UDP Scan Works</h4>
+                        <div class="scan-animation">
+                            <div class="scan-step"><span class="step-num">1</span> Send empty UDP packet</div>
+                            <div class="scan-arrow">↓</div>
+                            <div class="scan-step"><span class="step-num">2</span> No response = OPEN|FILTERED</div>
+                            <div class="scan-arrow">↓</div>
+                            <div class="scan-step"><span class="step-num">3</span> ICMP unreachable = CLOSED</div>
+                        </div>
+                        <p class="scan-why">🐢 <strong>Why Slow?</strong> UDP has no acknowledgment, so Nmap must wait for timeout on each port!</p>
+                        <div class="scan-visual">
+                            <span>💻</span>
+                            <span class="packet-flow">UDP→ ←(silence?) 🤔</span>
+                            <span>🖥️</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="scan-card ping hover-explainer">
+                    <div class="scan-icon">📍</div>
+                    <h3>Ping Scan</h3>
+                    <code>nmap -sn target</code>
+                    <p>Check if host is alive - no port scan</p>
+                    <span class="scan-badge">Fast • Discovery</span>
+                    <div class="hover-tooltip scan-tooltip">
+                        <h4>📍 How Ping Scan Works</h4>
+                        <div class="scan-animation">
+                            <div class="scan-step"><span class="step-num">1</span> Send ICMP Echo Request</div>
+                            <div class="scan-arrow">↓</div>
+                            <div class="scan-step"><span class="step-num">2</span> + TCP SYN to port 443</div>
+                            <div class="scan-arrow">↓</div>
+                            <div class="scan-step"><span class="step-num">3</span> + TCP ACK to port 80</div>
+                        </div>
+                        <p class="scan-why">🚀 <strong>Use Case:</strong> Quickly find all live hosts in a network before detailed scanning!</p>
+                        <div class="scan-visual">
+                            <span>💻</span>
+                            <span class="packet-flow">PING→ ←PONG 🟢 Alive!</span>
+                            <span>🖥️</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="scan-card ack hover-explainer">
+                    <div class="scan-icon">🧱</div>
+                    <h3>ACK Scan</h3>
+                    <code>nmap -sA target</code>
+                    <p>Detect firewall rules</p>
+                    <span class="scan-badge">Firewall Testing</span>
+                    <div class="hover-tooltip scan-tooltip">
+                        <h4>🧱 How ACK Scan Works</h4>
+                        <div class="scan-animation">
+                            <div class="scan-step"><span class="step-num">1</span> Send ACK packet (no SYN first!)</div>
+                            <div class="scan-arrow">↓</div>
+                            <div class="scan-step"><span class="step-num">2</span> RST response = Unfiltered</div>
+                            <div class="scan-arrow">↓</div>
+                            <div class="scan-step"><span class="step-num">3</span> No response = Filtered by firewall</div>
+                        </div>
+                        <p class="scan-why">🔍 <strong>Purpose:</strong> NOT to find open ports, but to MAP firewall rules!</p>
+                        <div class="scan-visual">
+                            <span>💻</span>
+                            <span class="packet-flow">ACK→ 🧱 Firewall? ←RST</span>
+                            <span>🖥️</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">16</div>
+    </div>
+
+    <!-- Slide 17: Port Options -->
+    <div class="slide slide-port-options" id="slide17">
+        <div class="slide-header">
+            <h2>Port Scanning Options</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="port-options-list">
+                <div class="port-option">
+                    <div class="option-code">
+                        <code>nmap -p 22 target</code>
+                    </div>
+                    <div class="option-desc">Single port</div>
+                </div>
+                <div class="port-option">
+                    <div class="option-code">
+                        <code>nmap -p 22,80,443 target</code>
+                    </div>
+                    <div class="option-desc">Multiple specific ports</div>
+                </div>
+                <div class="port-option">
+                    <div class="option-code">
+                        <code>nmap -p 1-1000 target</code>
+                    </div>
+                    <div class="option-desc">Port range</div>
+                </div>
+                <div class="port-option highlight">
+                    <div class="option-code">
+                        <code>nmap -p- target</code>
+                    </div>
+                    <div class="option-desc">All 65535 ports</div>
+                </div>
+                <div class="port-option">
+                    <div class="option-code">
+                        <code>nmap --top-ports 100 target</code>
+                    </div>
+                    <div class="option-desc">Top 100 most common</div>
+                </div>
+                <div class="port-option">
+                    <div class="option-code">
+                        <code>nmap -F target</code>
+                    </div>
+                    <div class="option-desc">Fast scan (top 100)</div>
+                </div>
+            </div>
+            <div class="port-tip">
+                <span class="tip-icon">💡</span>
+                <p><strong>Tip:</strong> Use <code>-F</code> for quick scans, <code>-p-</code> for thorough analysis</p>
+            </div>
+        </div>
+        <div class="slide-number">17</div>
+    </div>
+
+    <!-- Slide 18: Service & OS Detection -->
+    <div class="slide slide-detection" id="slide18">
+        <div class="slide-header">
+            <h2>Service & OS Detection</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="detection-cards">
+                <div class="detection-card service">
+                    <div class="detect-icon">🔧</div>
+                    <h3>Service Detection</h3>
+                    <div class="detect-code">
+                        <code>nmap -sV target</code>
+                    </div>
+                    <div class="detect-example">
+                        <p>Detects:</p>
+                        <ul>
+                            <li>Apache 2.4.41</li>
+                            <li>OpenSSH 8.2</li>
+                            <li>MySQL 5.7</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="detection-card os">
+                    <div class="detect-icon">💻</div>
+                    <h3>OS Detection</h3>
+                    <div class="detect-code">
+                        <code>sudo nmap -O target</code>
+                    </div>
+                    <div class="detect-example">
+                        <p>Detects:</p>
+                        <ul>
+                            <li>Windows 10/11</li>
+                            <li>Ubuntu 22.04</li>
+                            <li>macOS Ventura</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="detection-card aggressive">
+                    <div class="detect-icon">🔥</div>
+                    <h3>Aggressive Scan</h3>
+                    <div class="detect-code">
+                        <code>sudo nmap -A target</code>
+                    </div>
+                    <div class="detect-example">
+                        <p>Includes:</p>
+                        <ul>
+                            <li>OS Detection</li>
+                            <li>Version Detection</li>
+                            <li>Script Scanning</li>
+                            <li>Traceroute</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">18</div>
+    </div>
+
+    <!-- Slide 19: NSE Scripts -->
+    <div class="slide slide-nse" id="slide19">
+        <div class="slide-header">
+            <h2>Nmap Scripting Engine (NSE)</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="nse-intro">
+                <p>NSE allows running powerful scripts for advanced scanning and vulnerability detection</p>
+            </div>
+            <div class="nse-commands">
+                <div class="nse-command">
+                    <code>nmap -sC target</code>
+                    <span>Default scripts</span>
+                </div>
+                <div class="nse-command">
+                    <code>nmap --script=vuln target</code>
+                    <span>Vulnerability scan</span>
+                </div>
+                <div class="nse-command">
+                    <code>nmap --script=http-title target</code>
+                    <span>Specific script</span>
+                </div>
+            </div>
+            <div class="nse-categories">
+                <h3>Script Categories</h3>
+                <div class="category-grid">
+                    <div class="category">
+                        <span class="cat-name">auth</span>
+                        <span class="cat-desc">Authentication</span>
+                    </div>
+                    <div class="category">
+                        <span class="cat-name">brute</span>
+                        <span class="cat-desc">Password cracking</span>
+                    </div>
+                    <div class="category">
+                        <span class="cat-name">vuln</span>
+                        <span class="cat-desc">Vulnerabilities</span>
+                    </div>
+                    <div class="category">
+                        <span class="cat-name">exploit</span>
+                        <span class="cat-desc">Exploitation</span>
+                    </div>
+                    <div class="category">
+                        <span class="cat-name">discovery</span>
+                        <span class="cat-desc">Information</span>
+                    </div>
+                    <div class="category">
+                        <span class="cat-name">default</span>
+                        <span class="cat-desc">Safe & useful</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">19</div>
+    </div>
+
+    <!-- Slide 20: Firewall Evasion -->
+    <div class="slide slide-evasion" id="slide20">
+        <div class="slide-header">
+            <h2>Firewall Evasion Techniques</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="evasion-grid">
+                <div class="evasion-card hover-explainer">
+                    <div class="evasion-icon">📦</div>
+                    <h3>Fragment Packets</h3>
+                    <code>nmap -f target</code>
+                    <p>Split packets to bypass filters</p>
+                    <div class="hover-tooltip evasion-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="fragment-animation">
+                                <span class="full-packet">📦</span>
+                                <span class="arrow">→</span>
+                                <span class="fragments">📄📄📄</span>
+                            </div>
+                        </div>
+                        <h4>How Fragmentation Works</h4>
+                        <p>Splits packets into tiny 8-byte pieces. Simple firewalls can't reassemble them to inspect!</p>
+                        <div class="evasion-flow">
+                            <span>Big Packet</span> → <span>Tiny Pieces</span> → <span>Bypass Firewall</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="evasion-card hover-explainer">
+                    <div class="evasion-icon">👥</div>
+                    <h3>Decoy Scan</h3>
+                    <code>nmap -D RND:5 target</code>
+                    <p>Hide among fake IPs</p>
+                    <div class="hover-tooltip evasion-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="decoy-animation">
+                                <span class="real-ip">🎯 You</span>
+                                <span class="decoys">👤👤👤👤👤</span>
+                            </div>
+                        </div>
+                        <h4>How Decoy Works</h4>
+                        <p>Sends scan packets from multiple fake IP addresses along with your real one!</p>
+                        <div class="evasion-flow">
+                            <span>5 Fake IPs</span> + <span>Your IP</span> = <span>Who's real? 🤷</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="evasion-card hover-explainer">
+                    <div class="evasion-icon">🎭</div>
+                    <h3>Spoof MAC</h3>
+                    <code>nmap --spoof-mac 0 target</code>
+                    <p>Randomize MAC address</p>
+                    <div class="hover-tooltip evasion-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="mac-animation">
+                                <span class="real-mac">AA:BB:CC:DD:EE:FF</span>
+                                <span class="arrow">→</span>
+                                <span class="fake-mac">??:??:??:??:??:??</span>
+                            </div>
+                        </div>
+                        <h4>How MAC Spoofing Works</h4>
+                        <p>Changes your hardware address to random or specific vendor (Apple, Cisco, etc.)</p>
+                        <div class="evasion-flow">
+                            <span>0 = Random</span> | <span>Apple = Apple MAC</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="evasion-card hover-explainer">
+                    <div class="evasion-icon">⏱️</div>
+                    <h3>Timing Control</h3>
+                    <code>nmap -T0 target</code>
+                    <p>Slow down to avoid detection</p>
+                    <div class="hover-tooltip evasion-tooltip">
+                        <div class="tooltip-illustration">
+                            <div class="timing-animation">
+                                <span class="fast">🚀 T5</span>
+                                <span class="arrow">...</span>
+                                <span class="slow">🐢 T0</span>
+                            </div>
+                        </div>
+                        <h4>How Timing Works</h4>
+                        <p>T0 sends one packet every 5 minutes! IDS can't detect patterns in such slow scans.</p>
+                        <div class="evasion-flow">
+                            <span>Slower</span> = <span>More Stealthy</span> = <span>Takes Hours!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="timing-scale">
+                <h4>Timing Templates</h4>
+                <div class="timing-bar">
+                    <span class="timing t0">T0<br>Paranoid</span>
+                    <span class="timing t1">T1<br>Sneaky</span>
+                    <span class="timing t2">T2<br>Polite</span>
+                    <span class="timing t3">T3<br>Normal</span>
+                    <span class="timing t4">T4<br>Aggressive</span>
+                    <span class="timing t5">T5<br>Insane</span>
+                </div>
+                <div class="timing-labels">
+                    <span>🐢 Slower</span>
+                    <span>🚀 Faster</span>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">20</div>
+    </div>
+
+    <!-- Slide 21: Output Options -->
+    <div class="slide slide-output" id="slide21">
+        <div class="slide-header">
+            <h2>Output Options</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="output-cards">
+                <div class="output-card">
+                    <div class="output-icon">📄</div>
+                    <h3>Normal Output</h3>
+                    <code>nmap target -oN scan.txt</code>
+                    <p>Human-readable text file</p>
+                </div>
+                <div class="output-card">
+                    <div class="output-icon">📊</div>
+                    <h3>XML Output</h3>
+                    <code>nmap target -oX scan.xml</code>
+                    <p>For tools & parsing</p>
+                </div>
+                <div class="output-card">
+                    <div class="output-icon">🔍</div>
+                    <h3>Grepable</h3>
+                    <code>nmap target -oG scan.gnmap</code>
+                    <p>Easy to grep/search</p>
+                </div>
+                <div class="output-card highlight">
+                    <div class="output-icon">📁</div>
+                    <h3>All Formats</h3>
+                    <code>nmap target -oA results</code>
+                    <p>Creates .nmap, .xml, .gnmap</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">21</div>
+    </div>
+
+    <!-- Slide 22: Quick Reference -->
+    <div class="slide slide-cheatsheet" id="slide22">
+        <div class="slide-header">
+            <h2>Quick Reference Cheat Sheet</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="cheat-columns">
+                <div class="cheat-section">
+                    <h4>🎯 Target</h4>
+                    <div class="cheat-item"><code>nmap target</code> Single</div>
+                    <div class="cheat-item"><code>nmap 1.1.1.1-50</code> Range</div>
+                    <div class="cheat-item"><code>nmap 1.1.1.0/24</code> Subnet</div>
+                    <div class="cheat-item"><code>nmap -iL file.txt</code> From file</div>
+                </div>
+                <div class="cheat-section">
+                    <h4>🔍 Scan Type</h4>
+                    <div class="cheat-item"><code>-sS</code> SYN (stealth)</div>
+                    <div class="cheat-item"><code>-sT</code> TCP connect</div>
+                    <div class="cheat-item"><code>-sU</code> UDP scan</div>
+                    <div class="cheat-item"><code>-sn</code> Ping scan</div>
+                </div>
+                <div class="cheat-section">
+                    <h4>🔢 Ports</h4>
+                    <div class="cheat-item"><code>-p 22</code> Single</div>
+                    <div class="cheat-item"><code>-p 1-1000</code> Range</div>
+                    <div class="cheat-item"><code>-p-</code> All ports</div>
+                    <div class="cheat-item"><code>-F</code> Fast (top 100)</div>
+                </div>
+                <div class="cheat-section">
+                    <h4>🔧 Detection</h4>
+                    <div class="cheat-item"><code>-sV</code> Service version</div>
+                    <div class="cheat-item"><code>-O</code> OS detection</div>
+                    <div class="cheat-item"><code>-A</code> Aggressive</div>
+                    <div class="cheat-item"><code>-sC</code> Default scripts</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">22</div>
+    </div>
+
+    <!-- Slide 23: Legal Warning -->
+    <div class="slide slide-legal" id="slide23">
+        <div class="slide-header">
+            <h2>⚠️ Legal Warning</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="warning-box">
+                <div class="warning-icon">⚖️</div>
+                <h3>Important!</h3>
+                <p class="warning-text">Only scan networks you <strong>own</strong> or have <strong>explicit written permission</strong> to scan.</p>
+                <p class="warning-sub">Unauthorized scanning is <span class="illegal">ILLEGAL</span> and can result in criminal charges!</p>
+            </div>
+            <div class="legal-tips">
+                <div class="tip-card safe">
+                    <span class="tip-emoji">✅</span>
+                    <h4>Safe to Scan</h4>
+                    <ul>
+                        <li>Your own network</li>
+                        <li>scanme.nmap.org</li>
+                        <li>Lab environments</li>
+                        <li>With written permission</li>
+                    </ul>
+                </div>
+                <div class="tip-card danger">
+                    <span class="tip-emoji">❌</span>
+                    <h4>Never Scan</h4>
+                    <ul>
+                        <li>Random websites</li>
+                        <li>Company networks</li>
+                        <li>Government systems</li>
+                        <li>Without permission</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">23</div>
+    </div>
+
+    <!-- Slide 24: Practice -->
+    <div class="slide slide-practice" id="slide24">
+        <div class="slide-header">
+            <h2>Practice Commands</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="content">
+            <div class="practice-target">
+                <h3>🎯 Official Practice Target</h3>
+                <div class="target-url">scanme.nmap.org</div>
+                <p>Nmap's official test server - safe to scan!</p>
+            </div>
+            <div class="practice-commands">
+                <div class="practice-cmd beginner">
+                    <span class="level">🟢 Beginner</span>
+                    <code>nmap scanme.nmap.org</code>
+                </div>
+                <div class="practice-cmd intermediate">
+                    <span class="level">🟡 Intermediate</span>
+                    <code>nmap -sV -sC scanme.nmap.org</code>
+                </div>
+                <div class="practice-cmd advanced">
+                    <span class="level">🔴 Advanced</span>
+                    <code>nmap -A -T4 scanme.nmap.org</code>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">24</div>
+    </div>
+
+    <!-- Slide 25: Thank You -->
+    <div class="slide slide-thanks" id="slide25">
+        <div class="bg-pattern"></div>
+        <div class="content">
+            <div class="thanks-content">
+                <h1>Thank You!</h1>
+                <div class="divider"></div>
+                <p class="questions">Questions?</p>
+                <div class="contact-info">
+                    <div class="resource">
+                        <span>📖</span>
+                        <span>nmap.org/book</span>
+                    </div>
+                    <div class="resource">
+                        <span>🎯</span>
+                        <span>scanme.nmap.org</span>
+                    </div>
+                    <div class="resource">
+                        <span>🔬</span>
+                        <span>tryhackme.com</span>
+                    </div>
+                </div>
+                <div class="final-quote">
+                    <p>"Knowledge is power. Use it responsibly."</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">25</div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-controls">
+        <button id="prevBtn" onclick="changeSlide(-1)">❮ Prev</button>
+        <span id="slideCounter">1 / 25</span>
+        <button id="nextBtn" onclick="changeSlide(1)">Next ❯</button>
+    </div>
+
+    <!-- Print Button -->
+    <button class="print-btn" onclick="window.print()">🖨️ Print/Save as PDF</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
